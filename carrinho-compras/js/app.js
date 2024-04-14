@@ -14,6 +14,7 @@ function adicionar() {
 
     carrinho.innerHTML += novoItem;
     precoTotalHTML.innerHTML = `R$${precoTotal}`;
+    document.querySelector('#quantidade').value = '';
 }
 
 function limpar() {
