@@ -12,13 +12,17 @@ function reiniciar() {
 
 function adicionar() {
     if (nomeAmigo.value != '') {
-        if(listaAmigosHTML.innerHTML == '') {
-            listaAmigosHTML.innerHTML = `${nomeAmigo.value}`
+        if (!listaAmigos.includes(nomeAmigo.value)) {
+            if(listaAmigosHTML.innerHTML == '') {
+                listaAmigosHTML.innerHTML = `${nomeAmigo.value}`
+            } else {
+                listaAmigosHTML.innerHTML += `, ${nomeAmigo.value}`
+            }
+            listaAmigos.push(nomeAmigo.value);
+            nomeAmigo.value = '';
         } else {
-            listaAmigosHTML.innerHTML += `, ${nomeAmigo.value}`
+            alert('Nome já adicionado');
         }
-        listaAmigos.push(nomeAmigo.value);
-        nomeAmigo.value = '';
     } else {
         alert('Digite um nome para adicionar a lista');
     }
@@ -45,13 +49,17 @@ function sortear() {
     var amigosAdicionados = [];
     
     let i = 0;
-    while(i < listaAmigos.length) {
-        if(listaAmigos[i] != listaEmbaralhada[i] && !amigosAdicionados.includes(listaEmbaralhada[i])) {
-            listaSorteio.innerHTML += `${listaAmigos[i]} -> ${listaEmbaralhada[i]} <br>`;
-            amigosAdicionados.push(listaEmbaralhada[i]);
-            i++;
-        } else {
-            listaEmbaralhada = randomizarLista(listaAmigos);
+    if (listaAmigos.length >= 4) {
+        while(i < listaAmigos.length) {
+            if(listaAmigos[i] != listaEmbaralhada[i] && !amigosAdicionados.includes(listaEmbaralhada[i])) {
+                listaSorteio.innerHTML += `${listaAmigos[i]} -> ${listaEmbaralhada[i]} <br>`;
+                amigosAdicionados.push(listaEmbaralhada[i]);
+                i++;
+            } else {
+                listaEmbaralhada = randomizarLista(listaAmigos);
+            }
         }
+    } else {
+        alert('Mínimo de 4 pessoas participando!');
     }
 }
